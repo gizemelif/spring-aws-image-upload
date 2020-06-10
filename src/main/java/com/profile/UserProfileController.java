@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/user-profile")
+@CrossOrigin("*")
 public class UserProfileController {
 
     private final UserProfileService userProfileService;
@@ -25,13 +26,14 @@ public class UserProfileController {
     }
 
     //Arayüzden yüklenecek dosya user id ye göre bu metoda gönderilir.
+    @CrossOrigin("*")
     @PostMapping(
             path = "{userProfileId}/image/download",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public void uploadUserProfileImage(@PathVariable("userProfileId")UUID userProfileId,
-                                       @RequestParam("file")MultipartFile multipartFile){
-        userProfileService.uploadUserProfileImage(userProfileId, multipartFile);
+                                       @RequestParam("file")MultipartFile file){
+        userProfileService.uploadUserProfileImage(userProfileId, file);
     }
 }
